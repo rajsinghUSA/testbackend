@@ -24,7 +24,7 @@ function createUser (req) {
 
 
 function selectByEmail(email, callback) {
-  return this.db.get(
+  return this.knex.get(
       `SELECT * FROM user WHERE email = ?`,
       [email],function(err,row){
           callback(err,row)

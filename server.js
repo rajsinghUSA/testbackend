@@ -94,21 +94,31 @@ app.post('/register', function(req, res) {
 
 
 
+// app.post('/register', (req, res, next)  => {
+//   return authUtils.createUser(req, res)
+//   .then((response) => {
+//     console.log('we are in then')
+//     passport.authenticate('local', (err, user, info) => {
+//       console.log('passport.authenticate now')
+//       console.log(user)
+//       if (user) { console.log('found user: \n' + user); handleResponse(res, 200, 'success'); }
+//       else {console.log('no user'); handleResponse(res, 401, 'user not found')}
+//     })(req, res, next);
+//   })
+//   .catch((err) => { console.log(err); handleResponse(res, 500, 'error'); });
+// });
+
 app.post('/register', (req, res, next)  => {
   return authUtils.createUser(req, res)
   .then((response) => {
     console.log('we are in then')
-    passport.authenticate('local', (err, user, info) => {
-      console.log('passport.authenticate now')
-      console.log(user)
-      if (user) { console.log('found user: \n' + user); handleResponse(res, 200, 'success'); }
-      else {console.log('no user'); handleResponse(res, 401, 'user not found')}
-    })(req, res, next);
+    passport.authenticate('local', { failureRedirect: '/login' }),
+    function(req, res) {
+      res.redirect('/');
+    }
   })
   .catch((err) => { console.log(err); handleResponse(res, 500, 'error'); });
 });
-
-
 
 
 
