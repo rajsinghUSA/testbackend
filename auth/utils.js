@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const knex = require('../db/connection')
 
 function comparePass(userPassword, databasePassword) {
+  console.log("we're in comparePass")
   return bcrypt.compareSync(userPassword, databasePassword);
 }
 
@@ -13,13 +14,25 @@ function createUser (req) {
   const hash = bcrypt.hashSync(req.body.password, salt);
   return knex('users')
   .insert({
-    username: req.body.username,
+    email: req.body.email,
     password: hash
   })
-  .returning('*');
+ // .returning('*');
 }
+
+
+function selectByEmail(email, callback) {
+  return this.db.get(
+      `SELECT * FROM user WHERE email = ?`,
+      [email],function(err,row){
+          callback(err,row)
+      })
+}
+
+
 
 module.exports = {
   comparePass,
-  createUser
+  createUser,
+  selectByEmail
 };

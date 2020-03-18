@@ -21,7 +21,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // setting up the DB
-const db = require('./db/connection')
+const knex = require('./db/connection')
 
 // const cors = require('cors')
 // app.use(cors())
@@ -70,18 +70,18 @@ app.post('/register', (req, res, next) => {
 
 
 
-
+/*
 app.post('/register', function(req, res) {
   console.log("we're in register")
-  db.insert([
+  knex.insert([
     req.body.name,
     req.body.email,
     bcrypt.hashSync(req.body.password, 8)
-  ],
+  ]).asCallback(
   function (err) {
     console.log("we're in register2")
     if (err) return res.status(500).send("There was a problem registering the user.")
-    db.selectByEmail(req.body.email, (err,user) => {
+    knex.selectByEmail(req.body.email, (err,user) => {
       if (err) return res.status(500).send("There was a problem getting user")
       let token = jwt.sign({ id: user.id }, config.secret, {expiresIn: 86400 // expires in 24 hours
       });
@@ -89,6 +89,24 @@ app.post('/register', function(req, res) {
     });
   });
 });
+*/
+
+
+
+app.post('/register', (req, res, next)  => {
+  return authUtils.createUser(req, res)
+  .then((response) => {
+    console.log('we are in then')
+    passport.authenticate('local', (err, user, info) => {
+      console.log('we are in register')
+      if (user) { console.log("we are fine"); handleResponse(res, 200, 'success'); }
+    })(req, res, next);
+  })
+  .catch((err) => { console.log("we had an error"); handleResponse(res, 500, 'error'); });
+});
+
+
+
 
 
 app.post("/api/login", (req, res, next) => {

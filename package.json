@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node ./server.js",
-    "debug": "nodemon --inspect ./server.js",
-    "test": "mocha ./test/integration/routes.auth.test.js"
+    "debug": "DEBUG='knex:*' nodemon --inspect ./server.js",
+    "test": "DEBUG='knex:*' mocha ./test/integration/routes.auth.test.js"
   },
   "author": "",
   "license": "ISC",

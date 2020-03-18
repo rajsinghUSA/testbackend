@@ -31,9 +31,9 @@ describe('POST /register', () => {
       password: 'herman'
     })
     .end((err, res) => {
-      console.log('hi')
       should.not.exist(err);
       res.redirects.length.should.eql(0);
+      console.log('test end')
       res.status.should.eql(200);
       res.type.should.eql('application/json');
       res.body.status.should.eql('success');
