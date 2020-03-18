@@ -65,6 +65,7 @@ app.post('/register', (req, res, next) => {
     .catch(error => next(error))
   })
 })
+*/
 
 
 
@@ -86,7 +87,6 @@ app.post('/register', function(req, res) {
     });
   });
 });
-*/
 
 
 app.post("/api/login", (req, res, next) => {
