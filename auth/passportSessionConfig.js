@@ -2,7 +2,7 @@ const passport = require('passport');
 const knex = require('../db/connection');
 
 module.exports = () => {
-
+  console.log("we're in passportSessionConfig")
   passport.serializeUser((user, done) => {
     done(null, user.id);
   });

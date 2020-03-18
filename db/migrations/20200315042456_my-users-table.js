@@ -12,6 +12,7 @@
 
 
 exports.up = function(knex) {
+  console.log('we are in migrations')
   return knex.schema.createTable('users', table => {
     table.increments();
     table.string('username').unique().notNullable();

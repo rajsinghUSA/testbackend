@@ -78,6 +78,7 @@ app.post('/register', function(req, res) {
     bcrypt.hashSync(req.body.password, 8)
   ],
   function (err) {
+    console.log("we're in register")
     if (err) return res.status(500).send("There was a problem registering the user.")
     db.selectByEmail(req.body.email, (err,user) => {
       if (err) return res.status(500).send("There was a problem getting user")

@@ -10,6 +10,8 @@ const options = {};
 init();
 
 passport.use(new LocalStrategy(options, (username, password, done) => {
+  console.log("we're in passportLocalStrategy")
+
   // check to see if the username exists
   knex('users').where({ username }).first()
   .then((user) => {
