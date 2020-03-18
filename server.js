@@ -72,13 +72,14 @@ app.post('/register', (req, res, next) => {
 
 
 app.post('/register', function(req, res) {
+  console.log("we're in register")
   db.insert([
     req.body.name,
     req.body.email,
     bcrypt.hashSync(req.body.password, 8)
   ],
   function (err) {
-    console.log("we're in register")
+    console.log("we're in register2")
     if (err) return res.status(500).send("There was a problem registering the user.")
     db.selectByEmail(req.body.email, (err,user) => {
       if (err) return res.status(500).send("There was a problem getting user")
