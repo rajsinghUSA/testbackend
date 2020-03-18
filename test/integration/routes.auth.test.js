@@ -38,6 +38,6 @@ describe('POST /register', () => {
       res.type.should.eql('application/json');
       res.body.status.should.eql('success');
       done();
-    });
+    })
   });
 });
