@@ -4,12 +4,13 @@ const express = require('express')
 const app = express()
 const cookieSession = require('cookie-session')
 const bodyParser = require('body-parser')
-const passport = require('passport')
+// const passport = require('passport')
+const passport = require('./auth/passportLocalStrategy')
 
 // getting the local authentication type
-const LocalStrategy = require('passport-local').Strategy
+// const LocalStrategy = require('passport-local').Strategy
 
-const bcrypt = require('bcrypt')
+// const bcrypt = require('bcrypt')
 
 app.use(bodyParser.json())
 app.use(cookieSession({
@@ -98,11 +99,13 @@ app.post('/register', (req, res, next)  => {
   .then((response) => {
     console.log('we are in then')
     passport.authenticate('local', (err, user, info) => {
-      console.log('we are in register')
-      if (user) { console.log("we are fine"); handleResponse(res, 200, 'success'); }
+      console.log('passport.authenticate now')
+      console.log(user)
+      if (user) { console.log('found user: \n' + user); handleResponse(res, 200, 'success'); }
+      else {console.log('no user'); handleResponse(res, 401, 'user not found')}
     })(req, res, next);
   })
-  .catch((err) => { console.log("we had an error"); handleResponse(res, 500, 'error'); });
+  .catch((err) => { console.log(err); handleResponse(res, 500, 'error'); });
 });
 
 
@@ -122,6 +125,7 @@ app.post("/api/login", (req, res, next) => {
 });
 
 function handleResponse(res, code, statusMsg) {
+  console.log('handling the response!')
   res.status(code).json({status: statusMsg});
 }
 

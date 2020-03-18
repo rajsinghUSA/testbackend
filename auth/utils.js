@@ -9,14 +9,16 @@ function comparePass(userPassword, databasePassword) {
 
 function createUser (req) {
   console.log("we're in createUser")
-
+  // console.log(req)
+  console.log(req.body)
+  console.log(req.body.email)
   const salt = bcrypt.genSaltSync();
   const hash = bcrypt.hashSync(req.body.password, salt);
   return knex('users')
   .insert({
     email: req.body.email,
     password: hash
-  })
+  }).catch(err => console.log(err))
  // .returning('*');
 }
 

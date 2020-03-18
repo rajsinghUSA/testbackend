@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./server.js",
     "debug": "DEBUG='knex:*' nodemon --inspect ./server.js",
-    "test": "DEBUG='knex:*' mocha ./test/integration/routes.auth.test.js"
+    "test": "DEBUG='knex:*' mocha --inspect ./test/integration/routes.auth.test.js"
   },
   "author": "",
   "license": "ISC",
