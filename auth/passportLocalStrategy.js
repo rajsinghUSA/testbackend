@@ -5,11 +5,11 @@ const init = require('./passportSessionConfig');
 const knex = require('../db/connection');
 const authUtils = require('./utils')
 
-const options = {};
+// const options = {};
 
 init();
 
-passport.use(new LocalStrategy(options, (username, password, done) => {
+passport.use(new LocalStrategy((username, password, done) => {
   console.log("we're in passportLocalStrategy")
 
   // check to see if the username exists

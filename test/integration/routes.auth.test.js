@@ -27,7 +27,7 @@ describe('POST /register', () => {
     chai.request(server)
     .post('/register')
     .send({
-      email: 'michael@michael.com',
+      username: 'michael@michael.com',
       password: 'herman'
     })
     .end((err, res) => {

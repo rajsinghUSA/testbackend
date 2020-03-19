@@ -114,6 +114,7 @@ app.post('/register', (req, res, next)  => {
     console.log('we are in then')
     passport.authenticate('local', { failureRedirect: '/login' }),
     function(req, res) {
+      console.log('success maybe?')
       res.redirect('/');
     }
   })
